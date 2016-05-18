@@ -27,10 +27,25 @@ div.organizer_user {
   display: flex;
   flex-direction: column;
   margin: 2px;
+  border: 1px solid white;
 }
 
 p {
   white-space: nowrap;
   flex: 0;
   margin: 0;
+}
+
+a.disabled {
+  color: @light-gray-color-60;
+  pointer-events: none;
+  cursor: default;
+}
+
+.organizer_drop_possible {
+  border: 1px dotted @base-color-40 !important;
+}
+
+.organizer_drop_hover {
+  border: 1px solid @base-color !important;
 }

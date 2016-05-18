@@ -33,5 +33,15 @@ class OrganizerAsset extends SimpleORMap
         }
         return self::DEFAULT_ITEM;
     }
+/*
+    public static function getUpdateInformation($course_id = null) {
+        $course_id = $course_id ? : Course::findCurrent()->id;
+        if ($GLOBALS['perm']->have_studip_perm('tutor', $course_id)) {
+            $lists = self::findBySQL('course_id = ?', array($course_id));
+        } else {
+            $lists = self::findBySQL('course_id = ? AND visible = 1', array($course_id));
+        }
 
+    }
+*/
 }

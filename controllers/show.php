@@ -7,14 +7,13 @@ class ShowController extends StudipController
     {
         parent::__construct($dispatcher);
         $this->plugin = $dispatcher->plugin;
-    }
 
-    public function before_filter(&$action, &$args)
-    {
-        parent::before_filter($action, $args);
-
-        $this->set_layout($GLOBALS['template_factory']->open('layouts/base_without_infobox.php'));
-//      PageLayout::setTitle('');
+        if (Request::isXhr()) {
+            $this->set_layout(null);
+            $this->set_content_type('text/html;Charset=windows-1252');
+        } else {
+            $this->set_layout($GLOBALS['template_factory']->open('layouts/base'));
+        }
     }
 
     public function index_action()
@@ -90,15 +89,15 @@ class ShowController extends StudipController
     {
         $item = OrganizerItem::find(Request::get('item_id'));
         $group = OrganizerGroup::find(Request::get('group_id'));
-        $tutor = (bool) $GLOBALS['perm']->have_studip_perm('tutor', $item->list->course_id ? : Course::findCurrent()->id);
-        if ($tutor || ($item->list->assignable && $group->isMember(User::findCurrent()->id))) {
-            if (!$item) {
-                $list = OrganizerAsset::find(Request::get('list'));
+        $tutor = (bool)$GLOBALS['perm']->have_studip_perm('tutor', $item->list->course_id ?: Course::findCurrent()->id);
+        if (!$item) {
+            $list = OrganizerAsset::find(Request::get('list'));
+            if ($GLOBALS['perm']->have_studip_perm('tutor', $list->course_id) || $group->isMember(User::findCurrent()->id)) {
                 $list->removeGroup($group->id);
-            } else {
-                if ($item->isUnclaimed()) {
-                    $item->assign($group->id);
-                }
+            }
+        } else {
+            if ($item->isUnclaimed() && $item->list->assignable && $group->isMember(User::findCurrent()->id) || $tutor) {
+                $item->assign($group->id);
             }
         }
         $this->redirect('show/index');
