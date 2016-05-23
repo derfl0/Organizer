@@ -2,6 +2,8 @@
 
 class OrganizerGroup extends SimpleORMap
 {
+    private $users;
+
     protected static function configure($config = array())
     {
         $config['db_table'] = 'organizer_groups';
@@ -28,9 +30,16 @@ class OrganizerGroup extends SimpleORMap
 
     public function getUsers()
     {
-        return User::findThru($this->group_id, array('thru_table' => 'organizer_groupuser', 'thru_key' => 'group_id',
-            'thru_assoc_key' => 'user_id',
-            'assoc_foreign_key' => 'user_id'));
+        if (!$this->users) {
+            $this->users = User::findThru($this->group_id, array('thru_table' => 'organizer_groupuser', 'thru_key' => 'group_id',
+                'thru_assoc_key' => 'user_id',
+                'assoc_foreign_key' => 'user_id'));
+        }
+        return $this->users;
+    }
+
+    public function setUsers($users) {
+        $this->users = $users;
     }
 
     /**
@@ -97,5 +106,21 @@ class OrganizerGroup extends SimpleORMap
 
     public function hasMaxTeamSize() {
         return count($this->users) >= $this->settings->max_size;
+    }
+
+    public static function find($id) {
+        $user = User::find($id);
+        if ($user) {
+            return self::single($user);
+        }
+        return parent::find($id);
+    }
+
+    public static function single(User $user) {
+        $group = new self;
+        $group->id = $user->id;
+        $group->course_id = Course::findCurrent()->id;
+        $group->users = array($user);
+        return $group;
     }
 }
