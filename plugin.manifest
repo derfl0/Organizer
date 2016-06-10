@@ -1,5 +1,19 @@
 pluginname=Organizer
 pluginclassname=Organizer
 origin=upa
-version=1.0
+version=1.0.1
 studipMinVersion=3.1
+
+summary=Schnelle und einfache Verwaltung von Teams und Aufgaben
+description=Der Organizer ermöglicht es Teilnehmer einer Veranstaltung in Teams zusammenfassen. Die kann entweder durch den Dozenten der Veranstaltung oder von den Teilnehmern selbst vorgenommen werden (Mindest und Maximalgröße der Teams kann durch den Dozenten festgelegt werden). Außerdem können Aufgabenlisten erstellt werden (Referate, Projektthemen, ...) und an die Teams verteilt werden. Auch dieser Schritt kann wieder für die Teams zur Selbstverwaltung freigeschaltet werden.
+homepage=https://github.com/derfl0/Organizer
+
+screenshots = assets/screenshots
+screenshots.preview.jpg = Organizer
+
+displayname = Organizer
+icon = ../../../assets/images/icons/16/black/group3.png
+keywords = Teambildung;Aufgabenverteilung; Jeweils durch Dozent oder Teilnehmer (Einstellbar)
+category = Kommunikation und Zusammenarbeit
+descriptionshort = Schnelle und einfache Verwaltung von Teams und Aufgaben
+descriptionlong = Der Organizer ermöglicht es Teilnehmer einer Veranstaltung in Teams zusammenfassen. Die kann entweder durch den Dozenten der Veranstaltung oder von den Teilnehmern selbst vorgenommen werden (Mindest und Maximalgröße der Teams kann durch den Dozenten festgelegt werden). Außerdem können Aufgabenlisten erstellt werden (Referate, Projektthemen, ...) und an die Teams verteilt werden. Auch dieser Schritt kann wieder für die Teams zur Selbstverwaltung freigeschaltet werden.
